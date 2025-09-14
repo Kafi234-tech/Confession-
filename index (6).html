@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DESIGNED BY KAFI</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .hidden { display: none; }
+
+    /* Perfect Love Shape */
+    .heart {
+      position: relative;
+      width: 200px;
+      height: 180px;
+      transform: scale(0);
+      animation: heartbeat 3s forwards;
+      margin: 20px auto;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 100px;
+      height: 160px;
+      border-radius: 100px 100px 0 0;
+      background: red;
+    }
+    .heart::before {
+      left: 100px;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+    .heart::after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+
+    /* ধীরে ধীরে বড় হবে */
+    @keyframes heartbeat {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      color: pink;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: crimson;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="form">
+    <h2>Enter Your Info</h2>
+    <input type="text" id="name" placeholder="Your Name"><br>
+    <input type="text" id="relation" placeholder="Relation with Kafi"><br>
+    <button onclick="checkRelation()">Submit</button>
+  </div>
+
+  <div id="result" class="hidden">
+    <div id="heartContainer"></div>
+    <div id="message"></div>
+    <!-- গান -->
+    <audio id="song" src="/storage/emulated/0/Download/song.mp3"></audio>
+  </div>
+
+  <script>
+    function checkRelation() {
+      const relation = document.getElementById("relation").value.trim().toLowerCase();
+      document.getElementById("form").classList.add("hidden");
+      document.getElementById("result").classList.remove("hidden");
+
+      if (relation === "girlfriend") {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        document.getElementById("heartContainer").appendChild(heart);
+
+        setTimeout(() => {
+          document.getElementById("message").innerText = "I Love You ❤️";
+          const song = document.getElementById("song");
+          song.play();
+        }, 3000);
+      } else {
+        document.getElementById("message").innerText = "TATA 👋";
+      }
+    }
+  </script>
+</body>
+</html>
